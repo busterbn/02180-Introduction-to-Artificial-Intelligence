@@ -1,4 +1,6 @@
 from kalah import Kalah
+import random
+import math
 
 def evaluate_board(board, player):
     if player == 1:
@@ -71,6 +73,7 @@ def play_game(depth):
     game.collect_remaining_seeds()
     game.display_board()
     print(game.get_winner())
+
 
 if __name__ == "__main__":
     depth = int(input("Enter MiniMax search depth: "))

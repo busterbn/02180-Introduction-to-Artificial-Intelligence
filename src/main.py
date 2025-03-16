@@ -5,9 +5,9 @@ from alphabeta import play_game as play_game_PvAlphaBeta
 if __name__ == "__main__":
     while True:
         print("Chose a game mode:")
-        print("1: player vs. player")
-        print("2: player vs. MiniMax")
-        print("3: player vs. MiniMax with alpha-beta pruning")
+        print("1: Player vs. Player")
+        print("2: Player vs. MiniMax")
+        print("3: Player vs. Alpha Beta")
         print("Q: Quit")
         cmd = input("Enter number: ").upper()
         if cmd == '1':
