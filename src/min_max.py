@@ -52,7 +52,7 @@ def minimax(game, depth, is_maximizing, player):
                 if game_copy.make_move(pit):
                     evaluation = minimax(game_copy, depth - 1, False, player)
                     max_eval = max(max_eval, evaluation)
-        print(f"MiniMax (maximizing) returns {max_eval}")
+        # print(f"MiniMax (maximizing) returns {max_eval}")
         return max_eval
     else:
         min_eval = float('inf')
@@ -63,7 +63,7 @@ def minimax(game, depth, is_maximizing, player):
                 if game_copy.make_move(pit):
                     evaluation = minimax(game_copy, depth - 1, True, player)
                     min_eval = min(min_eval, evaluation)
-        print(f"MiniMax (minimizing) returns {min_eval}")
+        # print(f"MiniMax (minimizing) returns {min_eval}")
         return min_eval
 
 def find_best_move(game, depth):
