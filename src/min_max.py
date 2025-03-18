@@ -2,16 +2,23 @@ from kalah import Kalah
 import random
 import math
 
-def evaluate_board(board, player):
+def evaluate_board1(board, player):
     if player == 1:
         return board[6] - board[13]
     else:
         return board[13] - board[6]
+    
+
+def evaluate_board2(board, player):
+    if player == 1:
+        return sum(board[0:6])
+    else:
+        return sum(board[7:13])
 
 
 def minimax(board, depth, is_maximizing, player):
     if depth == 0 or Kalah().is_game_over():
-        return evaluate_board(board, player)
+        return evaluate_board2(board, player)
 
     if is_maximizing:
         max_eval = float('-inf')
