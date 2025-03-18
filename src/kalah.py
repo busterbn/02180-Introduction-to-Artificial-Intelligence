@@ -17,6 +17,15 @@ class Kalah:
             print(f"{self.board[i]:2}", end=" ")
         print("\n", end="")
 
+    def flip_board(self):
+        new_board = [4] * 6 + [0] + [4] * 6 + [0]
+        for i in range(0,6):
+            new_board[i] = self.board[i+7]
+        for i in range(7,14):
+            new_board[i] = self.board[i-7]
+        self.board = new_board
+
+
     def is_valid_move(self, pit):
         if self.current_player == 1 and 0 <= pit <= 5:
             return self.board[pit] > 0

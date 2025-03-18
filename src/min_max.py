@@ -2,18 +2,42 @@ import copy
 from kalah import Kalah
 import math
 
-def evaluate_board(board, player):
-    # Weight factors for seeds in pits vs. seeds in the store.
-    pit_weight = 0.2
+# def evaluate_board(board, player):
+#     # Weight factors for seeds in pits vs. seeds in the store.
+#     pit_weight = 0.2
 
+#     if player == 1:
+#         store_diff = board[6] - board[13]
+#         pits_score = sum(board[0:6]) - sum(board[7:13])
+
+#     else:
+#         store_diff = board[13] - board[6]
+#         pits_score = sum(board[7:13]) - sum(board[0:6])
+    
+#     return store_diff + pit_weight * pits_score
+
+def evaluate_board(board, player):
+    pit_weight = 0.2
+    penalty_factor = 0.3  # Penalty for leaving an empty pit opposite a filled one
+    
     if player == 1:
         store_diff = board[6] - board[13]
         pits_score = sum(board[0:6]) - sum(board[7:13])
+        penalty = 0
+        # For player 1, pits are 0 to 5; opposite pits are index 12 down to 7.
+        for i in range(0, 6):
+            if board[i] == 0 and board[12 - i] > 0:
+                penalty += penalty_factor * board[12 - i]
     else:
         store_diff = board[13] - board[6]
         pits_score = sum(board[7:13]) - sum(board[0:6])
+        penalty = 0
+        # For player 2, pits are 7 to 12; opposite pits are index 5 down to 0.
+        for i in range(7, 13):
+            if board[i] == 0 and board[12 - i] > 0:
+                penalty += penalty_factor * board[12 - i]
     
-    return store_diff + pit_weight * pits_score
+    return store_diff + pit_weight * pits_score - penalty
 
 def minimax(game, depth, is_maximizing, player):
     if depth == 0 or game.is_game_over():
@@ -28,7 +52,6 @@ def minimax(game, depth, is_maximizing, player):
                 if game_copy.make_move(pit):
                     evaluation = minimax(game_copy, depth - 1, False, player)
                     max_eval = max(max_eval, evaluation)
-        # Debug output (optional)
         print(f"MiniMax (maximizing) returns {max_eval}")
         return max_eval
     else:
@@ -40,7 +63,6 @@ def minimax(game, depth, is_maximizing, player):
                 if game_copy.make_move(pit):
                     evaluation = minimax(game_copy, depth - 1, True, player)
                     min_eval = min(min_eval, evaluation)
-        # Debug output (optional)
         print(f"MiniMax (minimizing) returns {min_eval}")
         return min_eval
 
