@@ -16,8 +16,6 @@ class Kalah:
         for i in range(0, 6):
             print(f"{self.board[i]:2}", end=" ")
         print("\n\n", end="")
-        print(line1)
-        print(line2)
 
     def flip_board(self):
         new_board = [4] * 6 + [0] + [4] * 6 + [0]

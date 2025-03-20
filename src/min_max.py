@@ -103,18 +103,21 @@ def find_best_move(game, depth):
 def play_game(depth):
     game = Kalah()
     last_to_move = '0'
+    game.display_board()
     while not game.is_game_over():
         if game.current_player == 1:
             while True:
                 try:
                     if last_to_move == 1:
-                        game.display_board("You get an extra turn !!", "Please choose a pit (1-6)")
+                        print("It's your turn again !!")
                     else:
-                        game.display_board("It's your turn", "Please choose a pit (1-6)")
-                    pit = int(input()) - 1
+                        print("It's your turn")
+                    pit = int(input("Please choose a pit (1-6): ")) - 1
                     if game.make_move(pit):
-                        game.display_board("", f"You moved pit {pit+1}")
-                        time.sleep(2)
+                        print(f"You moved pit {pit+1}")
+                        time.sleep(1)
+                        game.display_board()
+                        time.sleep(1)
                         last_to_move = 1
                         break
                     print("Invalid move! Try again.")
@@ -122,15 +125,17 @@ def play_game(depth):
                     print("Please enter a valid number!")
         else:
             if last_to_move == 2:
-                game.display_board("The AI get's an extra turn !!", "Please wait for it to make a move :)")
+                print("It's MiniMax's turn again !!")
             else:
-                game.display_board("It's the AI's turn", "Please wait for it to make a move :)")
-            time.sleep(4)
+                print(f"It's MiniMax's turn")
+            time.sleep(1)
             pit = find_best_move(game, depth)
             game.make_move(pit)
-            game.display_board(f"The AI moved its pit {pit-6}")
+            print(f"MiniMax moves pit {pit-6}")
+            time.sleep(1)
+            game.display_board()
+            time.sleep(1)
             last_to_move = 2
-            time.sleep(4)
     
     game.collect_remaining_seeds()
     game.display_board()
