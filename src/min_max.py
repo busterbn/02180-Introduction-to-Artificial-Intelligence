@@ -3,67 +3,58 @@ from kalah import Kalah
 import math
 import time
 
-# def evaluate_board(board, player):
-#     # Weight factors for seeds in pits vs. seeds in the store.
-#     pit_weight = 0.2
+def evaluate_board(board, player):
+    utility = 0
+    player_store = 6 if player == 1 else 13
+    opponent_store = 13 if player == 1 else 6
+    player_side = range(0, 6) if player == 1 else range(7, 13)
+    opponent_side = range(7, 13) if player == 1 else range(0, 6)
 
-#     if player == 1:
-#         store_diff = board[6] - board[13]
-#         pits_score = sum(board[0:6]) - sum(board[7:13])
+    # Add points for counters in player's store
+    utility += board[player_store] * 4
 
-#     else:
-#         store_diff = board[13] - board[6]
-#         pits_score = sum(board[7:13]) - sum(board[0:6])
-    
-#     return store_diff + pit_weight * pits_score
+    # Add points for holes with 13 counters on player's side
+    utility += sum(4 for pit in player_side if board[pit] == 13)
+
+    # Add points for holes with exact counters to receive another move
+    for pit in player_side:
+        if board[pit] > 0 and (pit + board[pit]) == player_store:
+            utility += 2
+
+    # Add points for empty holes on player's side
+    utility += sum(1 for pit in player_side if board[pit] == 0)
+
+    # Subtract points for opponent's store and advantageous positions
+    utility -= board[opponent_store] * 4
+    utility -= sum(4 for pit in opponent_side if board[pit] == 13)
+    utility -= sum(1 for pit in opponent_side if board[pit] == 0)
+
+    return utility
 
 # def evaluate_board(board, player):
 #     pit_weight = 0.2
 #     penalty_factor = 100  # Penalty for leaving an empty pit opposite a filled one
+
+
+#     # Rewards
+#     store_diff =  board[6] - board[13]
+#     pits_score = sum(board[0:6]) - sum(board[7:13])
     
+#     # Penalty
+#     penalty = 0
+
 #     if player == 1:
-#         store_diff = board[6] - board[13]
-#         pits_score = sum(board[0:6]) - sum(board[7:13])
-#         penalty = 0
-#         # For player 1, pits are 0 to 5; opposite pits are index 12 down to 7.
-#         for i in range(0, 6):
-#             if board[i] == 0 and board[12 - i] > 0:
-#                 penalty += penalty_factor * board[12 - i]
-#     else:
-#         store_diff = board[13] - board[6]
-#         pits_score = sum(board[7:13]) - sum(board[0:6])
-#         penalty = 0
-#         # For player 2, pits are 7 to 12; opposite pits are index 5 down to 0.
 #         for i in range(7, 13):
 #             if board[i] == 0 and board[12 - i] > 0:
 #                 penalty += penalty_factor * board[12 - i]
     
-#     return store_diff + pit_weight * pits_score - penalty
-
-def evaluate_board(board, player):
-    pit_weight = 0.2
-    penalty_factor = 100  # Penalty for leaving an empty pit opposite a filled one
-
-
-    # Rewards
-    store_diff =  board[6] - board[13]
-    pits_score = sum(board[0:6]) - sum(board[7:13])
-    
-    # Penalty
-    penalty = 0
-
-    if player == 1:
-        for i in range(7, 13):
-            if board[i] == 0 and board[12 - i] > 0:
-                penalty += penalty_factor * board[12 - i]
-    
-    elif player == 2:
-        for i in range(0, 6):
-            if board[i] == 0 and board[12 - i] > 0:
-                penalty -= penalty_factor * board[12 - i]
+#     elif player == 2:
+#         for i in range(0, 6):
+#             if board[i] == 0 and board[12 - i] > 0:
+#                 penalty -= penalty_factor * board[12 - i]
 
     
-    return store_diff + pit_weight * pits_score + penalty
+#     return store_diff + pit_weight * pits_score + penalty
 
 def minimax(game, depth, is_maximizing, player):
     if depth == 0 or game.is_game_over():
