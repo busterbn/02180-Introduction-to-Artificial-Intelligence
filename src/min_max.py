@@ -53,48 +53,6 @@ def minimax(game, depth):
                     best_score = score_temp
                     best_move = pit
         return best_score, best_move
-
-def minimax_alpha_beta(game, depth, alpha=0, beta=0):
-    best_move = -1
-    if depth == 0 or game.is_game_over():
-        final_score = game.board[13] - game.board[6]
-        return final_score, best_move
-
-    if game.current_player == 2:
-        best_score = float("-inf")
-        for pit in range(7, 13):
-            if game.is_valid_move(pit):
-                game_copy = copy.deepcopy(game)
-                game_copy.make_move(pit)
-                if game_copy.current_player == 2:
-                    score_temp, _ = minimax_alpha_beta(game_copy, depth, alpha, beta)
-                else:
-                    score_temp, _ = minimax_alpha_beta(game_copy, depth - 1, alpha, beta)
-                if score_temp > best_score:
-                    best_score = score_temp
-                    best_move = pit
-                alpha = max(alpha, best_score)
-                if beta <= alpha:
-                    break
-        return best_score, best_move
-
-    elif game.current_player == 1:
-        best_score = float("inf")
-        for pit in range(0, 6):
-            if game.is_valid_move(pit):
-                game_copy = copy.deepcopy(game)
-                game_copy.make_move(pit)
-                if game_copy.current_player == 1:
-                    score_temp, _ = minimax_alpha_beta(game_copy, depth, alpha, beta)
-                else:
-                    score_temp, _ = minimax_alpha_beta(game_copy, depth - 1, alpha, beta)
-                if score_temp < best_score:
-                    best_score = score_temp
-                    best_move = pit
-                beta = min(beta, best_score)
-                if beta <= alpha:
-                    break
-        return best_score, best_move
                 
 
 def play_game(depth):
