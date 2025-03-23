@@ -86,12 +86,12 @@ def play_game(depth):
                     print("Please enter a valid number!")
         else:
             if last_to_move == 2:
-                print("It's MiniMax's turn again !!")
+                print("It's MiniMaxAlphaBeta's turn again !!")
             else:
-                print(f"It's MiniMax's turn")
+                print(f"It's MiniMaxAlphaBeta's turn")
             time.sleep(1)
             score, move = minimax_alpha_beta(game, depth)
-            print(f"MiniMax moves pit {move-6} with anticipated score {score}")
+            print(f"MiniMaxAlphaBeta moves pit {move-6} with anticipated score {score}")
             game.make_move(move)
             time.sleep(1)
             game.display_board()
