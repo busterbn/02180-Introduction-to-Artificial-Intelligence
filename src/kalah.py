@@ -5,6 +5,7 @@ class Kalah:
         # Board: [Player 1 pits (0-5), P1 store (6), Player 2 pits (7-12), P2 store (13)]
         self.board = [4] * 6 + [0] + [4] * 6 + [0]  # 4 seeds in each pit, 0 in stores
         self.current_player = 1  # 1 for Player 1, 2 for Player 2
+        self.is_first_move = True
 
     def display_board(self, line1="", line2=""):
         print("\n\n    ", end="")
@@ -17,14 +18,6 @@ class Kalah:
             print(f"{self.board[i]:2}", end=" ")
         print("\n\n", end="")
 
-    def flip_board(self):
-        new_board = [4] * 6 + [0] + [4] * 6 + [0]
-        for i in range(0,6):
-            new_board[i] = self.board[i+7]
-        for i in range(7,14):
-            new_board[i] = self.board[i-7]
-        self.board = new_board
-
 
     def is_valid_move(self, pit):
         if self.current_player == 1 and 0 <= pit <= 5:
@@ -32,11 +25,17 @@ class Kalah:
         elif self.current_player == 2 and 7 <= pit <= 12:
             return self.board[pit] > 0
         return False
+    
+    def switch_start_position(self):
+        if self.is_first_move == True:
+            self.current_player = 3 - self.current_player
+
 
     def make_move(self, pit):
         if not self.is_valid_move(pit):
             return False
         
+        self.is_first_move = False
         seeds = self.board[pit]
         self.board[pit] = 0
         current_pos = pit
