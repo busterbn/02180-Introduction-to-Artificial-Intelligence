@@ -3,7 +3,7 @@ from kalah import Kalah
 import math
 import time
 
-def minimax_alpha_beta(game, depth, alpha=0, beta=0):
+def minimax_alpha_beta(game, depth, alpha=float("-inf"), beta=float("inf")):
     best_move = -1
     if depth == 0 or game.is_game_over():
         final_score = game.board[13] - game.board[6]

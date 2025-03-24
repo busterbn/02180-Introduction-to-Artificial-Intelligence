@@ -9,7 +9,7 @@ if __name__ == "__main__":
         print("Chose a game mode:")
         print("1: Player vs. Player")
         print("2: Player vs. MiniMax")
-        print("3: Player vs. Alpha Beta")
+        print("3: Player vs. MiniMax with Alpha Beta pruning")
         print("Q: Quit")
         cmd = input("Enter number: ").upper()
         if cmd == '1':
