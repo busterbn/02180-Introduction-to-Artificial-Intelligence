@@ -91,7 +91,7 @@ def play_game(depth):
                 print(f"It's MiniMaxAlphaBeta's turn")
             time.sleep(1)
             score, move = minimax_alpha_beta(game, depth)
-            print(f"MiniMaxAlphaBeta moves pit {move-6} with anticipated score {score}")
+            print(f"MiniMaxAlphaBeta moves pit {move-6}")
             game.make_move(move)
             time.sleep(1)
             game.display_board()

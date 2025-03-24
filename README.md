@@ -30,7 +30,13 @@ Follow these steps to build the project:
     just run
     ```
 
-2. You should now be prompted to make the first move:
+2. You should now be able to choose a game mode by typisk 1, 2 or 3 and then hit Enter.
+
+3. When playing against the AI, the TUI also allows you to pick a search depth.
+
+4. The last configuration is who should start the game.
+
+5. You should now be prompted to make the first move:
     ```txt
         4  4  4  4  4  4 
     0                        0
