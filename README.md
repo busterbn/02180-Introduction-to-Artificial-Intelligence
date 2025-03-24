@@ -1,6 +1,21 @@
 # 02180-Introduction-to-Artificial-Intelligence
 This repository contains the course work of group 52 in the DTU course 02180 Introduction to Artificial Intelligence.
 
+This repository contains the following files with brief explanations:
+
+```
+02180-Introduction-to-Artificial-Intelligence
+├── LICENSE         → Contains the legal licensing information for the project.
+├── README.md       → Provides an overview and instructions for the repository.
+├── dockerfile      → Defines the instructions to build the Docker image.
+├── justfile        → Contains task definitions for the Just command runner.
+└── src             → Directory holding the source code:
+    ├── alphabeta.py → Implements the alpha-beta pruning algorithm for decision making.
+    ├── kalah.py     → Contains the core logic and rules for the Kalah game.
+    ├── main.py      → Serves as the main entry point of the application.
+    └── min_max.py   → Implements the minimax algorithm for game strategy.
+```
+
 ## Requirements
 You need to have the following installed:
 - `just`    >= 1.40.0
