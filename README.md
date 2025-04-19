@@ -1,9 +1,16 @@
 # Belief Revision Project
 
+
 ## Requirements
-You need to have the following installed:
-- `just`    >= 1.40.0
-- `docker`  >= 27.5.1
+
+This project is setup to require a minimal number of utilities installed
+locally. To do this, most of the task done during local development is performed
+in [Docker](https://www.docker.com/). The requirements are thus:
+
+- [🐳 Docker](https://www.docker.com/)
+- [🤖 Just](https://github.com/casey/just)
+
+---
 
 ## Build instructions
 
