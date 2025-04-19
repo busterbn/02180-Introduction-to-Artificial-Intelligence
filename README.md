@@ -9,7 +9,7 @@ Welcome to my repository for the DTU course **02180 - Introduction to Artificial
 This repository is organized into two primary branches, each corresponding to a different home assignment.
 
 ### 1. Board Game Assignment
-- **Branch:** `board_game`
+- **Branch:** [`board_game`](https://github.com/busterbn/02180-Introduction-to-Artificial-Intelligence/tree/board_game)
 - **Description:**  
     Implementation of the game **Kalaha** using a Terminal User Interface (TUI) and then creating an AI opponent to play against. The AI still remains unbeaten to this day.
 - **Content:**
@@ -25,7 +25,7 @@ This repository is organized into two primary branches, each corresponding to a 
         └── min_max.py   → Implements the minimax algorithm for game strategy.
     ```
 ### 2. Belief Revision Assignment
-- **Branch:** `belief_revision`
+- **Branch:** [`belief_revision`](https://github.com/busterbn/02180-Introduction-to-Artificial-Intelligence/tree/belief_revision)
 - **Description:**  
     Design and implementation of a belief revision engine that updates an agent's beliefs based on a given propositional formula.
 
