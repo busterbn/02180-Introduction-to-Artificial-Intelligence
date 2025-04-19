@@ -1,4 +1,4 @@
-# Belief Revision Project
+# Belief Revision Engine
 
 
 ## Requirements
