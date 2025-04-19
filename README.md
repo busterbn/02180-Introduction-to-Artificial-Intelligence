@@ -12,18 +12,18 @@ This repository is organized into two primary branches, each corresponding to a 
 - **Branch:** `board_game`
 - **Description:**  
     Implementation of the game **Kalaha** using a Terminal User Interface (TUI) and then creating an AI opponent to play against. The AI still remains unbeaten to this day.
-
-board_game
-├── LICENSE         → Contains the legal licensing information for the project.
-├── README.md       → Provides an overview and instructions for the repository.
-├── dockerfile      → Defines the instructions to build the Docker image.
-├── justfile        → Contains task definitions for the Just command runner.
-└── src             → Directory holding the source code:
-    ├── alphabeta.py → Implements the alpha-beta pruning algorithm for decision making.
-    ├── kalah.py     → Contains the core logic and rules for the Kalah game.
-    ├── main.py      → Serves as the main entry point of the application.
-    └── min_max.py   → Implements the minimax algorithm for game strategy.
-
+- **Content:**
+    ```
+    ├── LICENSE         → Contains the legal licensing information for the project.
+    ├── README.md       → Provides an overview and instructions for the repository.
+    ├── dockerfile      → Defines the instructions to build the Docker image.
+    ├── justfile        → Contains task definitions for the Just command runner.
+    └── src             → Directory holding the source code:
+        ├── alphabeta.py → Implements the alpha-beta pruning algorithm for decision making.
+        ├── kalah.py     → Contains the core logic and rules for the Kalah game.
+        ├── main.py      → Serves as the main entry point of the application.
+        └── min_max.py   → Implements the minimax algorithm for game strategy.
+    ```
 ### 2. Belief Revision Assignment
 - **Branch:** `belief_revision`
 - **Description:**  
