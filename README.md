@@ -1,5 +1,4 @@
 # 02180-Introduction-to-Artificial-Intelligence
-This repository contains the course work of group 52 in the DTU course 02180 Introduction to Artificial Intelligence.
 
 This repository contains the following files with brief explanations:
 
