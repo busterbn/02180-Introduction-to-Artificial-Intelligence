@@ -1,27 +1,31 @@
-import min_max
-import alphabeta
-import kalah
-from kalah import Kalah
-from time import time
+# Antag at dine klassedefinitioner ligger i main.py
+from data_structures import Var, Not, And, Or, Imp, Iff
 
-if __name__ == "__main__":
-    while True:
-        print("Chose a game mode:")
-        print("1: Player vs. Player")
-        print("2: Player vs. MiniMax")
-        print("3: Player vs. MiniMax with Alpha Beta pruning")
-        print("Q: Quit")
-        cmd = input("Enter number: ").upper()
-        if cmd == '1':
-            kalah.play_game()
-        elif cmd == '2':
-            depth = int(input("Enter MiniMax search depth (recommended: 6): "))
-            min_max.play_game(depth)
-        elif cmd == '3':
-            depth = int(input("Enter MiniMax search depth (recommended: 8): "))
-            alphabeta.play_game(depth)
-        elif cmd == 'Q':
-            print("Exiting...")
-            break
-        else:
-            print("Invalid command.")
+# 1) Opret nogle atomare variable
+A = Var("A")
+B = Var("B")
+C = Var("C")
+D = Var("D")
+
+# 2) Byg en sammensat formel: (A ∧ ¬B) → (C ∨ D)
+phi  = And(A, Not(B))
+psi  = Or(C, D)
+f1   = Imp(phi, psi)
+
+print("Formel f1:", f1)
+# Output: Formel f1: ((A ∧ ¬B) → (C ∨ D))
+
+# 3) Byg en bikonditional: A ↔ B
+f2 = Iff(A, B)
+print("Formel f2:", f2)
+# Output: Formel f2: (A ↔ B)
+
+# 4) Kombinér Imp og Iff i en større formel
+f3 = Or( Imp(A, And(B, C)), Iff(Not(D), A) )
+print("Formel f3:", f3)
+# Output: Formel f3: ((A → (B ∧ C)) ∨ (¬D ↔ A))
+
+# 5) Du kan også tilgå indholdet direkte:
+print("f1 antecedent (phi):", f1.phi)   # And(A, Not(B))
+print("f1 consequent (psi):", f1.psi)   # Or(C, D)
+print("f2 argumenter:", f2.phi, f2.psi) # A B
