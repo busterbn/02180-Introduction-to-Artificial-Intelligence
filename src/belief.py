@@ -1,17 +1,22 @@
+from formula_ast import Not, And, Or, Implies, Bicond
+
+FACTOR_SENIORITY = 0.4
+FACTOR_SOURCE = 0.4
+FACTOR_COMPLEXITY = 0.2
+
 class Belief:
     def __init__(self, formula, source='unknown', seniority=None):
         self.f = formula
+        # Static ranking
         self.source = source
-        # Seniority score: initial beliefs default to 1.0, new ones decay externally
-        self.seniority = seniority if seniority is not None else 1.0
-        self.usage_count = 0
         self.complexity = self._compute_complexity()
-        # Dynamic metrics placeholders; update via methods
+        self.seniority = seniority if seniority is not None else 1.0
+        self.static_rank = self.compute_static_rank()
+        # Dynamic ranking
+        self.usage_count = 0
         self.strength = 0
         self.consistency_contrib = 0
         # Now that seniority and other attributes are set, compute initial priority
-        self.static_priority = 0
-        self.dynamic_priority = 0
         self.priority = 0
 
     def __repr__(self):
@@ -26,9 +31,20 @@ class Belief:
                 f"– {self.f}")
 
     def _compute_complexity(self):
-        # simple count of logical operators in the formula string
-        s = str(self.f)
-        return sum(1 for c in s if c in ['&', '|', '~', '>', '<', '=', '!'])
+        """
+        Count logical operators by traversing the formula AST.
+        """
+        def count_ops(node):
+            # Negation node counts as one operator + recurse
+            if isinstance(node, Not):
+                return 1 + count_ops(node.f)
+            # Binary operators count as one + recurse on both sides
+            if isinstance(node, (And, Or, Implies, Bicond)):
+                return 1 + count_ops(node.left) + count_ops(node.right)
+            # Atom or any other leaf: no operators here
+            return 0
+
+        return count_ops(self.f)
 
     def update_usage(self):
         self.usage_count += 1
@@ -61,7 +77,9 @@ class Belief:
         # simplicity: fewer operators → higher score
         complexity_score = 1 / (1 + self.complexity)
         # weighted combination
-        return seniority_score * 0.4 + source_score * 0.4 + complexity_score * 0.2
+        return seniority_score * FACTOR_SENIORITY \
+                + source_score * FACTOR_SOURCE \
+                + complexity_score * FACTOR_COMPLEXITY
 
     def compute_dynamic_rank(self):
         # use placeholders; in practice update strength and consistency first
