@@ -12,15 +12,12 @@ class BeliefBase:
     # AGM expansion: add new belief without checking consistency
     def __init__(self):
         self.beliefs = []  # list of Belief
-        self.seniority = 1.0 * SENIORITY_DECAY_FACTOR
+        self.current_seniority = 1.0 * SENIORITY_DECAY_FACTOR
 
     # AGM expansion: add new belief without checking consistency
-    def expand(self, formula, priority=0, source='observation', timestamp=None):
+    def expand(self, formula, source='observation', seniority=None):
         """AGM expansion: add new belief with metadata."""
-        if timestamp is None:
-            self.beliefs.append(Belief(formula, priority, source, self.seniority))
-        else:
-            self.beliefs.append(Belief(formula, priority, source, timestamp))
+        self.beliefs.append(Belief(formula, source, seniority))
 
     # AGM contraction: remove lowest-priority beliefs until formula is no longer entailed
     def contract(self, formula):
@@ -44,10 +41,10 @@ class BeliefBase:
         self.beliefs = []
 
     # AGM revision (Levi identity): contract ¬formula then expand formula
-    def revise(self, formula, priority=0):
+    def revise(self, formula, source='expert'):
         """AGM revision: contract ¬formula, then expand."""
         self.contract(Not(formula))
-        self.expand(formula, priority)
+        self.expand(formula, source='expert', seniority=self.current_seniority)
 
     def entails(self, formula):
         return BeliefBase._entails_list(self.beliefs, formula)
@@ -61,3 +58,6 @@ class BeliefBase:
 
     def __repr__(self):
         return "\n".join(repr(b) for b in sorted(self.beliefs, key=lambda B: -B.rank()))
+    
+
+    

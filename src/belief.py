@@ -1,7 +1,6 @@
 class Belief:
-    def __init__(self, formula, priority=0, source='unknown', seniority=None):
+    def __init__(self, formula, source='unknown', seniority=None):
         self.f = formula
-        self.priority = priority
         self.source = source
         # Seniority score: initial beliefs default to 1.0, new ones decay externally
         self.seniority = seniority if seniority is not None else 1.0
@@ -10,6 +9,8 @@ class Belief:
         # Dynamic metrics placeholders; update via methods
         self.strength = 0
         self.consistency_contrib = 0
+        # Now that seniority and other attributes are set, compute initial priority
+        self.priority = self.rank()
 
     def __repr__(self):
         return (f"Rank={self.rank():.2f} "

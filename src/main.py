@@ -53,8 +53,8 @@ def ranking_demo():
 def main():
     bb = BeliefBase()
     # B0: A ∧ B  (prio 1), C → A (prio 2)
-    bb.expand(parse_formula("A & B"), priority=1)
-    bb.expand(parse_formula("C -> A"), priority=2)
+    bb.expand(parse_formula("A & B"), source='observation', seniority=1.0)
+    bb.expand(parse_formula("C -> A"), source='observation', seniority=1.0)
     print("Base:")
     print(bb, "\n")
 
@@ -62,7 +62,7 @@ def main():
     print("Entails A?", bb.entails(parse_formula("A")))
 
     # Revise by ¬B (prio 3)
-    bb.revise(parse_formula("~B"), priority=3)
+    bb.revise(parse_formula("~B"), source='observation', )
     print("\nAfter revising with ¬B:")
     print(bb)
 
