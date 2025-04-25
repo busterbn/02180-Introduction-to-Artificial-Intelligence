@@ -1,10 +1,11 @@
 from belief_base import BeliefBase
 from parser import parse_formula
 
+# Creates an empty belief base
+bb = BeliefBase()
 
 
 def ranking_demo():
-    bb = BeliefBase()
     seniority = 1.0
     DECAY = 0.95
 
@@ -50,8 +51,7 @@ def ranking_demo():
 
 
 
-def main():
-    bb = BeliefBase()
+def test_revi(bb):
     # B0: A ∧ B  (prio 1), C → A (prio 2)
     bb.expand(parse_formula("A & B"), source='observation', seniority=1.0)
     bb.expand(parse_formula("C -> A"), source='observation', seniority=1.0)
@@ -67,6 +67,31 @@ def main():
     print(bb)
 
 
+def add_initial_beliefs(bb):
+    # Initial belief base:
+    bb.expand(parse_formula("A"),                  source='observation', seniority=1.0)
+    bb.expand(parse_formula("B & C"),              source='expert',      seniority=1.0)
+    bb.expand(parse_formula("D -> A"),             source='hypothesis',  seniority=1.0)
+    bb.expand(parse_formula("(E | F) -> G"),       source='expert',      seniority=1.0)
+    bb.expand(parse_formula("H | I"),              source='observation', seniority=1.0)
+    bb.expand(parse_formula("J -> (K & L)"),       source='hypothesis',  seniority=1.0)
+    bb.expand(parse_formula("M <-> N"),              source='expert',      seniority=1.0)
+    bb.expand(parse_formula("~O"),                 source='inference',   seniority=1.0)
+    bb.expand(parse_formula("(P | Q) & R"),        source='observation', seniority=1.0)
+    bb.expand(parse_formula("S -> (T | U)"),       source='hypothesis',  seniority=1.0)
+    bb.expand(parse_formula("V & (W | X)"),        source='expert',      seniority=1.0)
+    bb.expand(parse_formula("(Y -> Z) -> A"),      source='hypothesis',  seniority=1.0)
+    bb.expand(parse_formula("B -> ~D"),            source='inference',   seniority=1.0)
+    bb.expand(parse_formula("(C & E) -> H"),       source='expert',      seniority=1.0)
+    bb.expand(parse_formula("I | (J & K)"),        source='observation', seniority=1.0)
+    bb.expand(parse_formula("(L -> M) & (N -> O)"),source='hypothesis',  seniority=1.0)
+
+
 
 if __name__ == '__main__':
-    main()
+    bb = BeliefBase()
+    add_initial_beliefs(bb)
+    print("Base:")
+    print(bb, "\n")
+
+

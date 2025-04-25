@@ -10,12 +10,14 @@ class Belief:
         self.strength = 0
         self.consistency_contrib = 0
         # Now that seniority and other attributes are set, compute initial priority
-        self.priority = self.rank()
+        self.static_priority = 0
+        self.dynamic_priority = 0
+        self.priority = 0
 
     def __repr__(self):
         return (f"Rank={self.rank():.2f} "
-                f"[Pri={self.priority}] "
-                f"Src={self.source} "
+                f"[Pri={self.priority:.2f}] "
+                # f"Src={self.source} "
                 f"Sen={self.seniority:.2f} "
                 f"Use={self.usage_count} "
                 f"Comp={self.complexity} "
@@ -66,4 +68,5 @@ class Belief:
         return self.strength * 0.5 + self.usage_count * 0.3 + self.consistency_contrib * 0.2
 
     def rank(self):
-        return self.compute_static_rank() + self.compute_dynamic_rank()
+        self.priority = self.compute_static_rank() + self.compute_dynamic_rank()
+        return self.priority
