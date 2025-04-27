@@ -85,13 +85,23 @@ def add_initial_beliefs(bb):
     bb.expand(parse_formula("(C & E) -> H"),       source='expert',      seniority=1.0)
     bb.expand(parse_formula("I | (J & K)"),        source='observation', seniority=1.0)
     bb.expand(parse_formula("(L -> M) & (N -> O)"),source='hypothesis',  seniority=1.0)
+    
 
-
+def expand_knowledge_base(bb):
+    # New beliefs to try adding:
+    bb.expand(parse_formula("D & O"),         source='observation')
+    bb.expand(parse_formula("(A | P) -> S"),  source='expert')
+    bb.expand(parse_formula("~ (B & C)"),      source='inference')
 
 if __name__ == '__main__':
     bb = BeliefBase()
     add_initial_beliefs(bb)
     print("Base:")
     print(bb, "\n")
+    expand_knowledge_base(bb)
+    print("After expansion:")
+    print(bb, "\n")
+
+
 
 

@@ -18,7 +18,7 @@ class BeliefBase:
     def expand(self, formula, source='observation', seniority=None):
         """AGM expansion: add new belief with metadata."""
         self.beliefs.append(Belief(formula, source, seniority))
-        self.compute_priorities()
+        # self.compute_priorities()
 
     # AGM contraction: remove lowest-priority beliefs until formula is no longer entailed
     def contract(self, formula):
@@ -50,10 +50,10 @@ class BeliefBase:
     def entails(self, formula):
         return BeliefBase._entails_list(self.beliefs, formula)
     
-    def compute_priorities(self):
-        for belief in self.beliefs:
-            belief.compute_strength(self)
-            belief.compute_consistency_contrib(self)
+    # def compute_priorities(self):
+    #     for belief in self.beliefs:
+    #         belief.compute_strength(self)
+    #         belief.compute_consistency_contrib(self)
 
     @staticmethod
     def _entails_list(beliefs, formula):
