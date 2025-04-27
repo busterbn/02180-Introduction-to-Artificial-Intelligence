@@ -50,10 +50,20 @@ def expand_knowledge_base(bb):
 
 def run_terminal_user_inteface():
     while True:
-        print("Welcome to my Belief Base Engine\n")
+        print("Welcome to this Belief Base Engine")
+        print("")
+        print("Syntax for entering formulas:")
+        print("~ as Negation")
+        print("& as and")
+        print("| as or")
+        print("-> as implies")
+        print("<-> as bi-implies")
+        print("Example: ~(B & C) -> A")
+        print("")
         print("Menu")
         print("1: Start with empty belief base")
         print("2: Use a premade belief base")
+        print("")
         cmd = input("Enter number: ").upper()
         if cmd == '1':
             print("Starting with empty belief base\n")
@@ -72,51 +82,30 @@ def run_terminal_user_inteface():
     print(bb)
     sleep(1)
 
-    print("")
-    print("Syntax for entering new formulas:")
-    print("~ as Negation")
-    print("& as and")
-    print("| as or")
-    print("-> as implies")
-    print("<-> as bi-implies")
-    print("Example: ~(B & C) -> A")
-
     while True:
         print("")
-        formula = input("Add new formula: ")
-        bb.expand(parse_formula(formula), source='expert')
-        print("New belief base:")
-        print(bb)
+        print("Menu")
+        print("1. Add new formula")
+        print("2. Check entailment")
+        print("")
+        cmd = input("Enter number: ")
 
-    add_costum_beliefs()
-
-    # while True:
-    #     print("1. Add your owf formula")
-    #     print("2. Add this formula: D & O")
-    #     print("3. Add this formula: (A | P) -> S")
-    #     print("4. Add this formula: ~ (B & C)")
-    #     print("Q: Quit")
-    #     cmd = input("Enter number: ").upper()
-    #     if cmd == '1':
-    #         add_costum_beliefs()
-    #     elif cmd == '2':
-    #         bb.expand(parse_formula("D & O"),         source='observation')
-    #         print("New belief base:")
-    #         print(bb, "\n")
-    #     elif cmd == '3':
-    #         bb.expand(parse_formula("(A | P) -> S"),  source='expert')
-    #         print("New belief base:")
-    #         print(bb, "\n")
-    #     elif cmd == '4':
-    #         bb.expand(parse_formula("~ (B & C)"),      source='inference')
-    #         print("New belief base:")
-    #         print(bb, "\n")
-    #     elif cmd == 'Q':
-    #         print("Exiting...")
-    #         break
-    #     else:
-    #         print("Invalid command.")
-
+        if cmd == '1':
+            print("")
+            formula = input("Enter formula: ")
+            print(f"\nAdding  {parse_formula(formula)} to belief base\n")
+            sleep(1)
+            bb.revise(parse_formula(formula), source='expert')
+            print("New belief base:")
+            print(bb)
+            sleep(1)
+        
+        if cmd == '2':
+            formula = input("Enter formula: ")
+            print(f"Entails {parse_formula(formula)}?")
+            sleep(1)
+            print(bb.entails(parse_formula(formula)))
+            sleep(1)
 
 
 if __name__ == '__main__':
