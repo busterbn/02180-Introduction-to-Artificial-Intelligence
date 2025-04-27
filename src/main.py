@@ -23,28 +23,25 @@ def test_revi(bb):
 def add_initial_beliefs(bb):
     # Initial belief base:
     bb.expand(parse_formula("A"),                  source='observation', seniority=1.0)
-    bb.expand(parse_formula("B & C"),              source='expert',      seniority=1.0)
-    bb.expand(parse_formula("D -> A"),             source='hypothesis',  seniority=1.0)
-    bb.expand(parse_formula("(E | F) -> G"),       source='expert',      seniority=1.0)
+    bb.expand(parse_formula("B & C"),              source='observation',      seniority=1.0)
+    bb.expand(parse_formula("(E | F) -> G"),       source='observation',      seniority=1.0)
     bb.expand(parse_formula("H | I"),              source='observation', seniority=1.0)
-    bb.expand(parse_formula("J -> (K & L)"),       source='hypothesis',  seniority=1.0)
-    bb.expand(parse_formula("M <-> N"),              source='expert',      seniority=1.0)
-    bb.expand(parse_formula("~O"),                 source='inference',   seniority=1.0)
+    bb.expand(parse_formula("J -> (K & L)"),       source='observation',  seniority=1.0)
+    bb.expand(parse_formula("~O"),                 source='observation',   seniority=1.0)
     bb.expand(parse_formula("(P | Q) & R"),        source='observation', seniority=1.0)
-    bb.expand(parse_formula("S -> (T | U)"),       source='hypothesis',  seniority=1.0)
-    bb.expand(parse_formula("V & (W | X)"),        source='expert',      seniority=1.0)
-    bb.expand(parse_formula("(Y -> Z) -> A"),      source='hypothesis',  seniority=1.0)
-    bb.expand(parse_formula("B -> ~D"),            source='inference',   seniority=1.0)
-    bb.expand(parse_formula("(C & E) -> H"),       source='expert',      seniority=1.0)
+    bb.expand(parse_formula("S -> (T | U)"),       source='observation',  seniority=1.0)
+    bb.expand(parse_formula("V & (W | X)"),        source='observation',      seniority=1.0)
+    bb.expand(parse_formula("B -> ~D"),            source='observation',   seniority=1.0)
+    bb.expand(parse_formula("(C & E) -> H"),       source='observation',      seniority=1.0)
     bb.expand(parse_formula("I | (J & K)"),        source='observation', seniority=1.0)
-    bb.expand(parse_formula("(L -> M) & (N -> O)"),source='hypothesis',  seniority=1.0)
+    bb.expand(parse_formula("(L -> M) & (N -> O)"),source='observation',  seniority=1.0)
     
 
 def expand_knowledge_base(bb):
     # New beliefs to try adding:
-    bb.expand(parse_formula("D & O"),         source='observation')
-    bb.expand(parse_formula("(A | P) -> S"),  source='expert')
-    bb.expand(parse_formula("~(B & C)"),      source='inference')
+    bb.expand(parse_formula("D & O"),         source='heard')
+    bb.expand(parse_formula("(A | P) -> S"),  source='heard')
+    bb.expand(parse_formula("~(B & C)"),      source='heard')
 
 
 
@@ -83,49 +80,21 @@ def run_terminal_user_inteface():
     sleep(1)
 
     while True:
-        print("")
-        print("Menu")
-        print("1. Add new formula")
-        print("2. Check entailment")
-        print("")
-        cmd = input("Enter number: ")
-
-        if cmd == '1':
-            while True:
-                print("")
-                user_input = input("Enter formula: ")
-                try:
-                    f = parse_formula(user_input)
-                    break
-                except ValueError as e:
-                    print("Syntax error:", e)
-            print(f"\nAdding {f} to belief base\n")
-            sleep(1)
-            bb.revise(f, source='expert')
-            print("New belief base:")
-            print(bb)
-            sleep(1)
-
-        if cmd == '2':
-            while True:
-                user_input = input("Enter formula: ")
-                try:
-                    f = parse_formula(user_input)
-                    break
-                except ValueError as e:
-                    print("Syntax error:", e)
-            print(f"Entails {f}?")
-            sleep(1)
-            print(bb.entails(f))
-            sleep(1)
+        while True:
+            print("")
+            user_input = input("Enter formula: ")
+            try:
+                f = parse_formula(user_input)
+                break
+            except ValueError as e:
+                print("Syntax error:", e)
+        print(f"\nAdding {f} to belief base\n")
+        sleep(1)
+        bb.revise(f, source='expert')
+        print("New belief base:")
+        print(bb)
+        sleep(1)
 
 
 if __name__ == '__main__':
     run_terminal_user_inteface()
-    add_initial_beliefs(bb)
-    print("Base:")
-    print(bb, "\n")
-    expand_knowledge_base(bb)
-    print("After expansion:")
-    print(bb, "\n")
-

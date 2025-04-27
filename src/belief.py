@@ -1,8 +1,8 @@
 from formula_ast import Not, And, Or, Implies, Bicond
 
-FACTOR_SENIORITY = 1
-FACTOR_SOURCE = 1
-FACTOR_COMPLEXITY = 0.5
+FACTOR_SENIORITY = 0.5
+FACTOR_SOURCE = 0.5
+FACTOR_COMPLEXITY = 0.3
 
 class Belief:
     def __init__(self, formula, source='unknown', seniority=None):
@@ -16,11 +16,9 @@ class Belief:
     def __repr__(self):
         return (f"Rank={self.rank():.2f} "
                 f"Sen={self.seniority:.2f} "
-                # f"trustworthiness={self.trustworthiness} "
+                f"trustworthiness={self.trustworthiness} "
                 f"complexity={self.complexity:.2f} "
                 f"static_rank={self.static_rank:.2f} "
-                # f"Str={self.strength} "
-                # f"Cons={self.consistency_contrib} "
                 f"– {self.f}")
 
     def _compute_complexity(self):
@@ -40,16 +38,11 @@ class Belief:
         return count_ops(self.f)
 
     def compute_static_rank(self):
-        seniority_score = self.seniority
-        # source trustworthiness mapping
-        trust_map = {'observation': 1.0, 'expert': 0.8, 'hypothesis': 0.5, 'inference': 0.3}
+        trust_map = {'observation': 1.0, 'heard': 0.5}
         source_score = trust_map.get(self.trustworthiness, 0.1)
-        # simplicity: fewer operators → higher score
-        complexity_score = 1 / (1 + self.complexity)
-        # weighted combination
-        return seniority_score * FACTOR_SENIORITY \
+        return self.seniority * FACTOR_SENIORITY \
                 + source_score * FACTOR_SOURCE \
-                + complexity_score * FACTOR_COMPLEXITY
+                + self.complexity * FACTOR_COMPLEXITY
 
     def rank(self):
         self.priority = self.compute_static_rank()
