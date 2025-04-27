@@ -14,12 +14,12 @@ class Belief:
         self.static_rank = self.compute_static_rank()
 
     def __repr__(self):
-        return (f"Rank={self.rank():.2f} "
-                f"Sen={self.seniority:.2f} "
-                f"trustworthiness={self.trustworthiness} "
-                f"complexity={self.complexity:.2f} "
-                f"static_rank={self.static_rank:.2f} "
-                f"– {self.f}")
+        return (f"Priority: {self.rank():.2f} |"
+                # f"Sen={self.seniority:.2f} "
+                # f"trustworthiness={self.trustworthiness} "
+                # f"complexity={self.complexity:.2f} "
+                # f"static_rank={self.static_rank:.2f} "
+                f" {self.f}")
 
     def _compute_complexity(self):
         """

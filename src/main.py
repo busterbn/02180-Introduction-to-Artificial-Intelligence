@@ -4,24 +4,7 @@ from time import sleep
 
 bb = BeliefBase()
 
-
-def test_revi(bb):
-    bb.expand(parse_formula("A & B"), source='observation', seniority=1.0)
-    bb.expand(parse_formula("C -> A"), source='observation', seniority=1.0)
-    print("Base:")
-    print(bb, "\n")
-
-    # Check entailment: Does the base entail A?
-    print("Entails A?", bb.entails(parse_formula("A")))
-
-    # Revise by ¬B (prio 3)
-    bb.revise(parse_formula("~B"), source='observation', )
-    print("\nAfter revising with ¬B:")
-    print(bb)
-
-
 def add_initial_beliefs(bb):
-    # Initial belief base:
     bb.expand(parse_formula("A"),                  source='observation', seniority=1.0)
     bb.expand(parse_formula("B & C"),              source='observation',      seniority=1.0)
     bb.expand(parse_formula("(E | F) -> G"),       source='observation',      seniority=1.0)
@@ -35,15 +18,6 @@ def add_initial_beliefs(bb):
     bb.expand(parse_formula("(C & E) -> H"),       source='observation',      seniority=1.0)
     bb.expand(parse_formula("I | (J & K)"),        source='observation', seniority=1.0)
     bb.expand(parse_formula("(L -> M) & (N -> O)"),source='observation',  seniority=1.0)
-    
-
-def expand_knowledge_base(bb):
-    # New beliefs to try adding:
-    bb.expand(parse_formula("D & O"),         source='heard')
-    bb.expand(parse_formula("(A | P) -> S"),  source='heard')
-    bb.expand(parse_formula("~(B & C)"),      source='heard')
-
-
 
 def run_terminal_user_inteface():
     while True:
@@ -63,11 +37,11 @@ def run_terminal_user_inteface():
         print("")
         cmd = input("Enter number: ").upper()
         if cmd == '1':
-            print("Starting with empty belief base\n")
+            print("Starting with empty belief base")
             sleep(1)
             break
         elif cmd == '2':
-            print("Using premade belief base\n")
+            print("Using premade belief base")
             sleep(1)
             add_initial_beliefs(bb)
             break
@@ -75,23 +49,32 @@ def run_terminal_user_inteface():
             print("Invalid command.\n")
             sleep(1)
     
+    print("")
+    sleep(1)
     print("Current belief base:")
+    sleep(1)
     print(bb)
     sleep(1)
 
     while True:
         while True:
             print("")
-            user_input = input("Enter formula: ")
+            user_input = input("Add new formula: ")
             try:
                 f = parse_formula(user_input)
                 break
             except ValueError as e:
                 print("Syntax error:", e)
-        print(f"\nAdding {f} to belief base\n")
+        print(f"Adding {f} to belief base")
+        sleep(1)
+        print("")
         sleep(1)
         bb.revise(f, source='expert')
+        sleep(1)
+        print("")
+        sleep(1)
         print("New belief base:")
+        sleep(1)
         print(bb)
         sleep(1)
 

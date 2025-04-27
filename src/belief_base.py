@@ -34,6 +34,7 @@ class BeliefBase:
                 trial = [x for x in self.beliefs if x is not b]
                 # if removing b stops entailing formula, remove it permanently
                 if not self._entails_list(trial, formula):
+                    print(f"Removing belief: {b.f}")
                     self.beliefs = trial
                     break
             else:
@@ -62,6 +63,4 @@ class BeliefBase:
 
     def __repr__(self):
         return "\n".join(repr(b) for b in sorted(self.beliefs, key=lambda B: -B.rank()))
-    
-
     
