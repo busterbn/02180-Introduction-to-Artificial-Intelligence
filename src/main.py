@@ -53,11 +53,11 @@ def run_terminal_user_inteface():
         print("Welcome to this Belief Base Engine")
         print("")
         print("Syntax for entering formulas:")
-        print("~ as Negation")
-        print("& as and")
-        print("| as or")
-        print("-> as implies")
-        print("<-> as bi-implies")
+        print("Negation: ¬ or ~ ")
+        print("Conjunction: ∧ or &")
+        print("Disjunction: ∨ or |")
+        print("Implication: → or ->")
+        print("Bi-Implication: ↔ or <->")
         print("Example: ~(B & C) -> A")
         print("")
         print("Menu")
@@ -91,20 +91,32 @@ def run_terminal_user_inteface():
         cmd = input("Enter number: ")
 
         if cmd == '1':
-            print("")
-            formula = input("Enter formula: ")
-            print(f"\nAdding  {parse_formula(formula)} to belief base\n")
+            while True:
+                print("")
+                user_input = input("Enter formula: ")
+                try:
+                    f = parse_formula(user_input)
+                    break
+                except ValueError as e:
+                    print("Syntax error:", e)
+            print(f"\nAdding {f} to belief base\n")
             sleep(1)
-            bb.revise(parse_formula(formula), source='expert')
+            bb.revise(f, source='expert')
             print("New belief base:")
             print(bb)
             sleep(1)
-        
+
         if cmd == '2':
-            formula = input("Enter formula: ")
-            print(f"Entails {parse_formula(formula)}?")
+            while True:
+                user_input = input("Enter formula: ")
+                try:
+                    f = parse_formula(user_input)
+                    break
+                except ValueError as e:
+                    print("Syntax error:", e)
+            print(f"Entails {f}?")
             sleep(1)
-            print(bb.entails(parse_formula(formula)))
+            print(bb.entails(f))
             sleep(1)
 
 

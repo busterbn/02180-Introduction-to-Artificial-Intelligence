@@ -3,6 +3,13 @@ from formula_ast import Atom, Not, And, Or, Implies, Bicond
 # Tokenizer: split input string into tokens (operators, parentheses, identifiers)
 
 def tokenize(s):
+    # normalize Unicode negation symbol to ASCII tilde
+    s = s.replace('¬', '~')
+    s = s.replace('∧', '&')
+    s = s.replace('∨', '|')
+    s = s.replace('→', '->')
+    s = s.replace('↔', '<->')
+    
     # Initialize token list and index
     tokens = []
     i = 0
