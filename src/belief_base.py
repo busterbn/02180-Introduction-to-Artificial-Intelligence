@@ -20,8 +20,11 @@ class BeliefBase:
         if self.entails(formula):
             print(f"No change: belief base already entails {formula}")
             return
-        self.beliefs.append(Belief(formula, source, seniority))
-        # self.compute_priorities()
+        if seniority is None:
+            self.beliefs.append(Belief(formula, source, self.current_seniority))
+            self.current_seniority *= SENIORITY_DECAY_FACTOR
+        else:
+            self.beliefs.append(Belief(formula, source, seniority))
 
     # AGM contraction: remove only beliefs whose removal breaks entailment of formula
     def contract(self, formula):
@@ -48,7 +51,7 @@ class BeliefBase:
             print(f"Skipping revision: {formula} is already entailed.")
             return
         self.contract(Not(formula))
-        self.expand(formula, source='source', seniority=self.current_seniority)
+        self.expand(formula, source='source')
 
     def entails(self, formula):
         return BeliefBase._entails_list(self.beliefs, formula)
