@@ -44,13 +44,17 @@ Each belief is assigned a rank based on:
 
 This ranking affects which beliefs are removed during contraction.
 
+## Requirements 🚀
+
+- Python 3.13.2 (Developed and tested with)
+- No external dependencies required; using a virtual environment is recommended for isolation.
+
 ## ▶️ Getting Started
 
 1. Clone the repository:
    ```bash
-    git clone https://github.com/busterbn/02180-Introduction-to-Artificial-Intelligence.git
+    git clone -b belief_revision --single-branch https://github.com/busterbn/02180-Introduction-to-Artificial-Intelligence.git
     cd 02180-Introduction-to-Artificial-Intelligence
-    git switch belief_revision
    ```
 
 2. Run the belief base engine:
