@@ -17,9 +17,6 @@ class BeliefBase:
     # AGM expansion: add new belief without checking consistency
     def expand(self, formula, source='observation', seniority=None):
         """AGM expansion: add new belief with metadata."""
-        if self.entails(formula):
-            print(f"No change: belief base already entails {formula}")
-            return
         if seniority is None:
             self.beliefs.append(Belief(formula, source, self.current_seniority))
             self.current_seniority *= SENIORITY_DECAY_FACTOR
@@ -47,9 +44,6 @@ class BeliefBase:
     # AGM revision (Levi identity): contract ¬formula then expand formula
     def revise(self, formula, source='expert'):
         """AGM revision: contract ¬formula, then expand."""
-        if self.entails(formula):
-            print(f"Skipping revision: {formula} is already entailed.")
-            return
         self.contract(Not(formula))
         self.expand(formula, source='source')
 
