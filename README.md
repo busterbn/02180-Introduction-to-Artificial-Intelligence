@@ -44,7 +44,7 @@ Each belief is assigned a rank based on:
 
 This ranking affects which beliefs are removed during contraction.
 
-## Requirements 🚀
+## 🚀 Requirements 
 
 - Python 3.13.2 (Developed and tested with)
 - No external dependencies required; using a virtual environment is recommended for isolation.
