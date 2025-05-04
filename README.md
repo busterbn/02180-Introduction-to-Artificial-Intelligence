@@ -3,6 +3,12 @@
 
 This project is a belief base engine that supports expansion, contraction, and revision of propositional logic formulas based on AGM theory. It simulates how humans manage beliefs using ranked priorities and models logical inference using CNF transformation and resolution.
 
+#🧠 Mastermind Codebreaker (Optional Module)
+-------------------------------------------
+As an optional extension, we implemented a logical agent that plays the classic Mastermind game using our belief base system. Each guess and feedback step is treated as new information, and the belief base is revised accordingly using the AGM framework.
+
+The system filters consistent possible codes from the initial belief set, using logical constraints derived from feedback. This showcases how belief revision can be applied to dynamic reasoning scenarios.
+
 ## 📂 Directory Structure
 
 ```
