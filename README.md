@@ -3,24 +3,6 @@
 
 This project is a belief base engine that supports expansion, contraction, and revision of propositional logic formulas based on AGM theory. It simulates how humans manage beliefs using ranked priorities and models logical inference using CNF transformation and resolution.
 
-## 📚 Features
-
-- **Belief Base**:
-  - Expand beliefs (add new information)
-  - Contract beliefs (remove entailed statements)
-  - Revise beliefs (AGM-style update using Levi identity)
-- **Ranking Mechanism**:
-  - Static entrenchment based on:
-    - Formula seniority (age)
-    - Source trustworthiness
-    - Formula complexity
-- **Entailment Testing**:
-  - CNF conversion
-  - Resolution-based entailment algorithm
-- **User Interaction**:
-  - Terminal interface for entering and revising formulas
-  - Built-in AGM postulate tests
-
 ## 📂 Directory Structure
 
 ```
@@ -31,18 +13,9 @@ src/
 ├── formula_ast.py        # Formula AST node definitions
 ├── parser.py             # Propositional formula parser
 ├── resolution.py         # Resolution-based entailment algorithm
+├── master_mind.py        # Master Mind Code breaker
 └── main.py               # Terminal user interface and entry point
 ```
-
-## 🧠 Static Entrenchment Ranking
-
-Each belief is assigned a rank based on:
-
-- **Seniority**: Older beliefs are less likely to be discarded
-- **Source**: More trustworthy sources (e.g., observation) are preferred
-- **Complexity**: Structurally richer formulas are prioritized
-
-This ranking affects which beliefs are removed during contraction.
 
 ## 🚀 Requirements 
 
@@ -62,9 +35,19 @@ This ranking affects which beliefs are removed during contraction.
    python3 src/main.py
    ```
 
-3. Choose between:
-   - Starting with an empty belief base
-   - Using a pre-made belief base
+3. You will now be presented with Menu:
+   ```
+    Menu
+    1: Start with empty belief base
+    2: Start with a premade belief base
+    3: Run Master Mind solver
+
+    Enter number: 
+    ```
+
+4. Choose:
+- To test the belief base engine enter either 1 og 2 and press enter.
+- To test our master mind solver enter 3 and press enter.
 
 ## ✍️ Formula Syntax
 
