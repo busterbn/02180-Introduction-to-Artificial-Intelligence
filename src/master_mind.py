@@ -2,6 +2,7 @@ from itertools import product
 from belief_base import BeliefBase
 from parser import parse_formula
 import random
+from time import sleep
 
 # Define colors and positions
 COLORS = ['R', 'G', 'B', 'Y', 'O', 'P']
@@ -38,9 +39,11 @@ def run_mastermind_with_belief_base():
     guess = current_beliefs[0]
     attempts = 0
 
+    print("")
     print("Secret code is:", code_to_str(secret_code))
 
     while True:
+        sleep(0.8)
         feedback = get_feedback(guess, secret_code)
         attempts += 1
         print(f"Guess {attempts}: {code_to_str(guess)} | Feedback: {feedback}")

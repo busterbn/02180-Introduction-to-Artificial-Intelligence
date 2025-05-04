@@ -1,6 +1,7 @@
 from belief_base import BeliefBase
 from parser import parse_formula
 from time import sleep
+from master_mind import run_mastermind_with_belief_base
 
 bb = BeliefBase()
 
@@ -33,7 +34,8 @@ def run_terminal_user_inteface():
         print("")
         print("Menu")
         print("1: Start with empty belief base")
-        print("2: Use a premade belief base")
+        print("2: Start with a premade belief base")
+        print("3: Run Master Mind solver")
         print("")
         cmd = input("Enter number: ").upper()
         if cmd == '1':
@@ -45,6 +47,11 @@ def run_terminal_user_inteface():
             sleep(1)
             add_initial_beliefs(bb)
             break
+        elif cmd == '3':
+            print("Running Master Mind Solver")
+            sleep(1)
+            run_mastermind_with_belief_base()
+            return
         else:
             print("Invalid command.\n")
             sleep(1)
